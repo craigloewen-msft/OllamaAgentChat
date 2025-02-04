@@ -1,0 +1,5 @@
+streamlit
+asyncio
+openai
+semantic_kernel
+ollama

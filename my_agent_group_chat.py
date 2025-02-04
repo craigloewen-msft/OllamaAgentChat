@@ -22,7 +22,7 @@ class MyAgentGroupChat:
 
         # Define the Kernel
         kernel = Kernel()
-        added_models = ["qwen2.5-coder:1.5b", "llama3.1:latest", "deepseek-r1:8b", "phi4:latest"]
+        added_models = ["qwen2.5-coder:1.5b", "llama3.2:3b", "deepseek-r1:8b", "phi4:latest"]
         for model_id in added_models:
             kernel.add_service(OllamaChatCompletion(service_id=model_id, ai_model_id=model_id))
 
@@ -36,7 +36,7 @@ class MyAgentGroupChat:
         )
 
         llama_agent = ChatCompletionAgent(
-            service_id="llama3.1:latest",
+            service_id="llama3.2:3b",
             kernel=kernel, 
             name="LlamaAgent", 
             instructions="""You represent answers from the llama3.1 model.
@@ -49,8 +49,8 @@ class MyAgentGroupChat:
             kernel=kernel, 
             name="DeepseekAgent", 
             instructions="""You represent answers from the deepseek-r1:8b model.
-            You are going to evaluate the last input to the user from the assistant, and you are either going to critique it or build upon it.
-            So make sure to add some content based on the last assistant message.
+            Even if their is a last message from an assistant please add another one.
+            Expand on the last reply from the assistant and make it longer.
             """,
         )
 
@@ -59,8 +59,10 @@ class MyAgentGroupChat:
             kernel=kernel, 
             name="Phi4Agent", 
             instructions="""You represent answers from the phi4:latest model.
+            Even if their is a last message from an assistant please add another one.
             You will see a chat history from a user and an assistant. Your job is to output whether the question is fully answered (In that case you write "The question is fully answered")
             OR if it is not fully answered, please write the reason why.
+            Please give a long and verbose answer.
             """,
         )
 
