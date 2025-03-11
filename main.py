@@ -7,7 +7,7 @@ from semantic_kernel.contents.utils.author_role import AuthorRole
 st.title("💬 Entourage")
 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "name": "PersonalAssistant", "content": "How can I help you?"}]
+    st.session_state["messages"] = []
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
